@@ -1,0 +1,3 @@
+
+    yazdir(root);
+    yazdir(root);
