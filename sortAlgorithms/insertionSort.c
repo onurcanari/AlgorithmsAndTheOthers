@@ -1,30 +1,46 @@
 #include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
+#include "my_array_functions.h"
 
-void insertionSort(int arr[], int n);
-void printArray(int arr[],int n);
+
+#define SIZE 10
+
+void insertion_sort(int arr[]);
+
 
 int main(int argc, char const *argv[]){
-    int arr[] = {5,2,4,342,64,321,98};
-    printArray(arr,sizeof(arr)/sizeof(int));
-    insertionSort(arr,sizeof(arr)/sizeof(int));
-    printArray(arr,sizeof(arr)/sizeof(int));
+
+    int *arr = create_array(SIZE,200);
+
+    srand(time(NULL));
+    clock_t start,end;
+    
+    
+    print_array(arr,SIZE);
+    start = clock();
+    insertion_sort(arr);
+    end = clock();
+    float elapsedTime = (end-start)/CLOCKS_PER_SEC;
+    
+    printf("Elapsed Time: %f \n",elapsedTime);
+    
+    
+    print_array(arr,SIZE);
+    free(arr);
     return 0;
 }
-void insertionSort(int arr[], int n){
-    int i, key, j;
-    for(i=1;i<n;i++){
+
+void insertion_sort(int arr[]){
+    int i, j, key;
+    for(i=1;i<SIZE;i++){
         key = arr[i];
         j=i-1;
+
         while(j>=0 && arr[j]>key){
             arr[j+1] = arr[j];
             --j;
         }
         arr[j+1] = key;
     }
-}
-void printArray(int arr[],int n){
-    int i;
-    for(i = 0; i < n; i++)
-        printf("%d ",arr[i]);
-    printf("\n");
 }
